@@ -38,4 +38,15 @@ export const getMovies = () => {
         // console.log(json.results);
         return json.results;
       });
+    };
+
+    export const getUpcomingMovies = () => {
+      return fetch(
+        `https://api.themoviedb.org/3/movie/upcoming?api_key=${process.env.REACT_APP_TMDB_KEY}`
+      )
+        .then((res) => res.json())
+        .then((json) => {
+          // console.log(json.results);
+          return json.results;
+        });
   };
