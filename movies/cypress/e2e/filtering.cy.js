@@ -1,5 +1,4 @@
 import { filterByGenre, filterByTitle } from "../support/e2e";
-
 let movies; // List of Discover movies from TMDB
 
 describe("Filtering", () => {
@@ -40,8 +39,8 @@ describe("Filtering", () => {
   });
   describe("By movie genre", () => {
     it("show movies with the selected genre", () => {
-      const selectedGenreId = 35;
-      const selectedGenreText = "Comedy";
+      const selectedGenreId = 18;
+      const selectedGenreText = "Drama";
       const matchingMovies = filterByGenre(movies, selectedGenreId);
       cy.get("#genre-select").click();
       cy.get("li").contains(selectedGenreText).click();
@@ -56,24 +55,24 @@ describe("Filtering", () => {
   });
   describe("Combined genre and title", () => {
     it("show movies with the selected genre and movies with 'm' in the title", () => {
-        const searchString = "m";
-        const selectedGenreId = 18;
-        const selectedGenreText = "Drama";
-        const matchingMoviesByTitle = filterByTitle(movies, searchString);
-        const matchingMoviesByGenre = filterByGenre(movies, selectedGenreId);
-        const matchingMovies = matchingMoviesByTitle.filter(movieByTitle => 
-          matchingMoviesByGenre.some(movieByGenre => movieByTitle.id === movieByGenre.id)
-        );
-        cy.get("#filled-search").clear().type(searchString); 
-        cy.get("#genre-select").click();
-        cy.get("li").contains(selectedGenreText).click();
-        cy.get(".MuiCardHeader-content").should(
-          "have.length",
-          matchingMovies.length
-        );
-        cy.get(".MuiCardHeader-content").each(($card, index) => {
-          cy.wrap($card).find("p").contains(matchingMovies[index].title);
-        });
+      const searchString = "m";
+      const selectedGenreId = 18;
+      const selectedGenreText = "Drama";
+      const matchingMoviesByTitle = filterByTitle(movies, searchString);
+      const matchingMoviesByGenre = filterByGenre(movies, selectedGenreId);
+      const matchingMovies = matchingMoviesByTitle.filter(movieByTitle => 
+        matchingMoviesByGenre.some(movieByGenre => movieByTitle.id === movieByGenre.id)
+      );
+      cy.get("#filled-search").clear().type(searchString); // Enter m in text box
+      cy.get("#genre-select").click();
+      cy.get("li").contains(selectedGenreText).click();
+      cy.get(".MuiCardHeader-content").should(
+        "have.length",
+        matchingMovies.length
+      );
+      cy.get(".MuiCardHeader-content").each(($card, index) => {
+        cy.wrap($card).find("p").contains(matchingMovies[index].title);
       });
+    });
   });
 });

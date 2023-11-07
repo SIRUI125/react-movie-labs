@@ -33,6 +33,9 @@ const ratings = [
   },
 ];
 
+
+
+
 const styles = {
   root: {
     marginTop: 2,
@@ -61,9 +64,9 @@ const styles = {
 };
 
 const ReviewForm = ({ movie }) => {
+
+
   const [rating, setRating] = useState(3);
-  const [open, setOpen] = useState(false); 
-  const navigate = useNavigate();
   const context = useContext(MoviesContext);
   const defaultValues = {
     author: "",
@@ -71,6 +74,9 @@ const ReviewForm = ({ movie }) => {
     agree: false,
     rating: "3",
   };
+
+  const [open, setOpen] = useState(false); 
+  const navigate = useNavigate();
   
   const {
     control,
@@ -82,10 +88,7 @@ const ReviewForm = ({ movie }) => {
   const handleRatingChange = (event) => {
     setRating(event.target.value);
   };
-  const handleSnackClose = (event) => {
-    setOpen(false);
-    navigate("/movies/favorites");
-  };
+
   const onSubmit = (review) => {
     review.movieId = movie.id;
     review.rating = rating;
@@ -94,11 +97,33 @@ const ReviewForm = ({ movie }) => {
     setOpen(true); // NEW
   };
 
+  const handleSnackClose = (event) => {
+    setOpen(false);
+    navigate("/movies/favorites");
+  };
+
   return (
     <Box component="div" sx={styles.root}>
       <Typography component="h2" variant="h3">
         Write a review
       </Typography>
+
+      <Snackbar
+        sx={styles.snack}
+        anchorOrigin={{ vertical: "top", horizontal: "right" }}
+        open={open}
+        onClose={handleSnackClose}
+      >
+        <MuiAlert
+          severity="success"
+          variant="filled"
+          onClose={handleSnackClose}
+        >
+          <Typography variant="h4">
+            Thank you for submitting a review
+          </Typography>
+        </MuiAlert>
+      </Snackbar>
 
       <form sx={styles.form} onSubmit={handleSubmit(onSubmit)} noValidate>
         <Controller
@@ -155,22 +180,7 @@ const ReviewForm = ({ movie }) => {
             {errors.review.message}
           </Typography>
         )}
-        <Snackbar
-        sx={styles.snack}
-        anchorOrigin={{ vertical: "top", horizontal: "right" }}
-        open={open}
-        onClose={handleSnackClose}
-      >
-        <MuiAlert
-          severity="success"
-          variant="filled"
-          onClose={handleSnackClose}
-        >
-          <Typography variant="h4">
-            Thank you for submitting a review
-          </Typography>
-        </MuiAlert>
-      </Snackbar>
+
         <Controller
           control={control}
           name="rating"

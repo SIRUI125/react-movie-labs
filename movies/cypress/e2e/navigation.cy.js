@@ -48,9 +48,8 @@ describe("Navigation", () => {
       }
     );
   });
-   describe("From the favourites page to a movie's details", () => {
+  describe("From the favourites page to a movie's details", () => {
     beforeEach(() => {
-        // Select two favourites and navigate to Favourites page
         cy.get("button[aria-label='add to favorites']").eq(0).click();
         cy.get("button").contains("Favorites").click();
     });
@@ -58,7 +57,7 @@ describe("Navigation", () => {
         cy.get(".MuiCardActions-root").eq(0).contains("More Info").click();
         cy.url().should("include", `/movies/${movies[0].id}`);
     });
-    });
+  });
   describe("The forward/backward links", () => {
     beforeEach(() => {
       cy.get(".MuiCardActions-root").eq(0).contains("More Info").click();

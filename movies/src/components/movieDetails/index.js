@@ -21,7 +21,7 @@ const root = {
 const chip = { margin: 0.5 };
 
 const MovieDetails = ({ movie }) => {  // Don't miss this!
-    const [drawerOpen, setDrawerOpen] = useState(false);
+  const [drawerOpen, setDrawerOpen] = useState(false);
 
   return (
     <>
@@ -58,16 +58,21 @@ const MovieDetails = ({ movie }) => {  // Don't miss this!
         />
         <Chip label={`Released: ${movie.release_date}`} />
       </Paper>
-      <Paper component="ul" sx={{...root}}>
+
+      <Paper 
+        component="ul" 
+        sx={{...root}}
+      >
         <li>
-            <Chip label="Production countries" sx={{...chip}} color="primary" />
+          <Chip label="Production countries" sx={{...chip}} color="primary" />
         </li>
         {movie.production_countries.map((p) => (
-            <li key={p.name}>
-                <Chip label={p.name} sx={{...chip}} />
-            </li>
+          <li key={p.name}>
+            <Chip label={p.name} sx={{...chip}} />
+          </li>
         ))}
       </Paper>
+
       <Fab
         color="secondary"
         variant="extended"
