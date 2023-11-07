@@ -9,8 +9,6 @@ import WriteReview from "../components/cardIcons/writeReview";
 
 const FavoriteMoviesPage = () => {
   const {favorites: movieIds } = useContext(MoviesContext);
-
-  // Create an array of queries and run in parallel.
   console.log(movieIds)
   const favoriteMovieQueries = useQueries(
     movieIds.map((movieId) => {
@@ -20,7 +18,6 @@ const FavoriteMoviesPage = () => {
       };
     })
   );
-  // Check if any of the parallel queries is still loading.
   const isLoading = favoriteMovieQueries.find((m) => m.isLoading === true);
 
   if (isLoading) {
@@ -31,8 +28,6 @@ const FavoriteMoviesPage = () => {
     q.data.genre_ids = q.data.genres.map(g => g.id)
     return q.data
   });
-
-  // eslint-disable-next-line
   const toDo = () => true;
 
   return (

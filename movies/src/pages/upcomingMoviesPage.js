@@ -6,7 +6,7 @@ import Spinner from '../components/spinner';
 import AddToWatchIcon from "../components/cardIcons/addToWatch";
 
 const UpcomingMoviesPage = (props) => {
-git add -Aconst { data, error, isLoading, isError } = useQuery('upcoming', getUpcomingMovies)
+    const { data, error, isLoading, isError } = useQuery('upcoming', getUpcomingMovies)
     if (isLoading) {
       return <Spinner />
     }
